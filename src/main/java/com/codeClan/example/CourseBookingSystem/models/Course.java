@@ -22,7 +22,7 @@ public class Course {
     private double star_rating;
 
 
-//    List<Booking> bookingList;
+//    private List<Booking> bookingList;
 
     public Course(String name, String town, double star_rating) {
         this.name = name;
