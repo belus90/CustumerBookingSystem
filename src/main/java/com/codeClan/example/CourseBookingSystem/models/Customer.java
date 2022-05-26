@@ -1,5 +1,7 @@
 package com.codeClan.example.CourseBookingSystem.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,14 +23,15 @@ public class Customer {
     @Column(name = "age")
     private int age;
 
-
-//    private List<Booking> bookingList;
+    @JsonBackReference
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
+    private List<Booking> bookingList;
 
     public Customer(String name, String town, int age) {
         this.name = name;
         this.town = town;
         this.age = age;
-//        this.bookingList = new ArrayList<>();
+        this.bookingList = new ArrayList<>();
     }
 
     public Customer() {
@@ -66,11 +69,11 @@ public class Customer {
         this.age = age;
     }
 
-//    public List<Booking> getBookingList() {
-//        return bookingList;
-//    }
-//
-//    public void setBookingList(List<Booking> bookingList) {
-//        this.bookingList = bookingList;
-//    }
+    public List<Booking> getBookingList() {
+        return bookingList;
+    }
+
+    public void setBookingList(List<Booking> bookingList) {
+        this.bookingList = bookingList;
+    }
 }
