@@ -1,5 +1,8 @@
 package com.codeClan.example.CourseBookingSystem.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,14 +24,16 @@ public class Course {
     @Column(name = "star_rating")
     private double star_rating;
 
-
-//    private List<Booking> bookingList;
+    @JsonIgnoreProperties({"course"})
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+//    @JoinColumn(name = "bookingList", nullable = false)
+    private List<Booking> bookings;
 
     public Course(String name, String town, double star_rating) {
         this.name = name;
         this.town = town;
         this.star_rating = star_rating;
-//        this.bookingList = new ArrayList<>();
+        this.bookings = new ArrayList<>();
     }
 
     public Course() {
@@ -66,11 +71,12 @@ public class Course {
         this.star_rating = star_rating;
     }
 
-//    public List<Booking> getBookingList() {
-//        return bookingList;
-//    }
-//
-//    public void setBookingList(List<Booking> bookingList) {
-//        this.bookingList = bookingList;
-//    }
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
+
 }
